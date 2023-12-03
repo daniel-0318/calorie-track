@@ -1,3 +1,107 @@
-<p>
-  register works!
-</p>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+
+      <ion-buttons slot="start">
+        <ion-back-button default-href="/auth/login" text="Regresar"></ion-back-button>
+      </ion-buttons>
+
+
+      <ion-item>
+        <ion-input formControlName="firstName" type="text" labelPlacement="floating" label="Nombre"></ion-input>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('firstName')">
+        El nombre es requerido.
+      </ion-text>
+
+      <ion-item>
+        <ion-input formControlName="lastName" type="text" labelPlacement="floating" label="Apellido"></ion-input>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('lastName')">
+        El apellido es requerido.
+      </ion-text>
+
+      <ion-item>
+        <ion-select formControlName="identityType" labelPlacement="floating" label="Tipo de identidad">
+          <ion-select-option value="cedula">Cédula</ion-select-option>
+          <ion-select-option value="nit">NIT</ion-select-option>
+          <ion-select-option value="pasaporte">Pasaporte</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('identityType')">
+        El tipo de identidad es requerido.
+      </ion-text>
+
+      <ion-item>
+        <ion-input formControlName="identityNumber" type="text" labelPlacement="floating"
+          label="Número de identidad"></ion-input>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('identityNumber')">
+        El número de identidad es requerido.
+      </ion-text>
+
+      <ion-item>
+        <ion-input formControlName="email" type="email" placeholder="example@example.com" labelPlacement="floating"
+          label="Email"></ion-input>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('email')">
+        El correo electrónico es requerido o no es valido.
+      </ion-text>
+
+
+      <ion-item>
+        <ion-input formControlName="password" type="password" labelPlacement="floating" label="Contraseña"></ion-input>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('password')">
+        La contraseña debe de ser mayor de 6 caracteres.
+      </ion-text>
+
+      <ion-item>
+        <ion-input formControlName="password2" type="password" labelPlacement="floating"
+          label="Repita la contraseña"></ion-input>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('password2')">
+        Las contraseñas deben de ser iguales
+      </ion-text>
+
+      <ion-item>
+        <ion-select formControlName="gender" labelPlacement="floating" label="Género">
+          <ion-select-option value="masculino">Masculino</ion-select-option>
+          <ion-select-option value="femenino">Femenino</ion-select-option>
+          <ion-select-option value="no-especificado">Prefiero no especificar</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('gender')">
+        Debes seleccionar tu género.
+      </ion-text>
+
+      <ion-item>
+        <ion-input formControlName="phoneNumber" type="tel" labelPlacement="floating"
+          label="Número de teléfono"></ion-input>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('phoneNumber')">
+        El número de teléfono es requerido.
+      </ion-text>
+
+      <ion-item>
+        <ion-button (click)="addPhotoToGallery('cedulaFrontal')">Adjuntar imagen</ion-button>
+        <ion-input formControlName="cedulaFrontal" type="text" labelPlacement="floating"
+        label="Cédula frontal" readonly></ion-input>
+      </ion-item>
+  
+      <!-- Adjuntar imagen cédula reverso -->
+      <ion-item>
+        <ion-button (click)="addPhotoToGallery('cedulaReverso')">Adjuntar imagen</ion-button>
+        <ion-input formControlName="cedulaReverso" type="text" labelPlacement="floating"
+        label="Cédula reverso" readonly></ion-input>
+      </ion-item>
+  
+      <!-- Adjuntar fotografía de rostro -->
+      <ion-item>
+        <ion-button (click)="addPhotoToGallery('facialPhoto')">Adjuntar imagen</ion-button>
+        <ion-input formControlName="facialPhoto" type="text" labelPlacement="floating"
+        label="Fotografía de rostro" readonly></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" type="submit" [disabled]="!registerForm.valid">Registrarse</ion-button>
+    </ion-list>
+  </form>
