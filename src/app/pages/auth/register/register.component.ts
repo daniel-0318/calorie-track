@@ -17,13 +17,13 @@ export class RegisterComponent{
   constructor(private fb: FormBuilder, private validatorsService:ValidatorsService, 
     public photoService: PhotoService, private userApi:UserApiService, private router: Router) {
     this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      name: ['', Validators.required],
+      lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
-      identityType: ['', Validators.required],
-      identityNumber: ['', Validators.required],
+      identificationType: ['', Validators.required],
+      identificationNumber: ['', Validators.required],
       gender: ['', Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
+      phone: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       password2: ['', [Validators.required]],
       photoIdFront: ['', [Validators.required]],
@@ -52,7 +52,6 @@ export class RegisterComponent{
 
    onSubmit() {
     if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
       const formData = this.registerForm.value;
       this.userApi.createUser(formData).subscribe(resp => {
         console.log("registro", resp);

@@ -8,35 +8,35 @@
 
 
       <ion-item>
-        <ion-input formControlName="firstName" type="text" labelPlacement="floating" label="Nombre"></ion-input>
+        <ion-input formControlName="name" type="text" labelPlacement="floating" label="Nombre"></ion-input>
       </ion-item>
-      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('firstName')">
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('name')">
         El nombre es requerido.
       </ion-text>
 
       <ion-item>
-        <ion-input formControlName="lastName" type="text" labelPlacement="floating" label="Apellido"></ion-input>
+        <ion-input formControlName="lastname" type="text" labelPlacement="floating" label="Apellido"></ion-input>
       </ion-item>
-      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('lastName')">
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('lastname')">
         El apellido es requerido.
       </ion-text>
 
       <ion-item>
-        <ion-select formControlName="identityType" labelPlacement="floating" label="Tipo de identidad">
+        <ion-select formControlName="identificationType" labelPlacement="floating" label="Tipo de identidad">
           <ion-select-option value="cedula">Cédula</ion-select-option>
           <ion-select-option value="nit">NIT</ion-select-option>
           <ion-select-option value="pasaporte">Pasaporte</ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('identityType')">
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('identificationType')">
         El tipo de identidad es requerido.
       </ion-text>
 
       <ion-item>
-        <ion-input formControlName="identityNumber" type="text" labelPlacement="floating"
+        <ion-input formControlName="identificationNumber" type="text" labelPlacement="floating"
           label="Número de identidad"></ion-input>
       </ion-item>
-      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('identityNumber')">
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('identificationNumber')">
         El número de identidad es requerido.
       </ion-text>
 
@@ -76,10 +76,10 @@
       </ion-text>
 
       <ion-item>
-        <ion-input formControlName="phoneNumber" type="tel" labelPlacement="floating"
+        <ion-input formControlName="phone" type="tel" labelPlacement="floating"
           label="Número de teléfono"></ion-input>
       </ion-item>
-      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('phoneNumber')">
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('phone')">
         El número de teléfono es requerido.
       </ion-text>
 

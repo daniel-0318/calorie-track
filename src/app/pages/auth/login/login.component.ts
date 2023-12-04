@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserApiService } from 'src/app/services/user-api.service';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +9,32 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private router: Router) { }
+  email: string = '';
+  password: string = '';
 
-
+  constructor(private router: Router, private userApi:UserApiService) { }
 
   onLogin(){
-    this.router.navigate(['/home'])
+
+    const credentials = {
+      email: this.email,
+      password: this.password,
+      name: "app"
+    };
+
+    this.userApi.login(credentials).subscribe((resp:any) => {
+      
+      if(resp['message'] === 'Sucess'){
+        localStorage.setItem('token',resp['token'])
+        this.router.navigate(['/'])
+
+      }
+      
+    }, (error) => {
+
+      console.error('Error en la autenticación:', error);
+    });
+    
   }
 
 }

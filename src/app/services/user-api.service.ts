@@ -14,7 +14,29 @@ export class UserApiService {
 
   constructor(private http: HttpClient) { }
 
-  createUser(userData: any) {
-    return this.http.post(`${environment.url}/api/register`, userData);
+  public createUser(userData: any) {
+    return this.http.post(`${environment.url}/user`, userData);
+  }
+
+  public updateUser(userData: any){
+    let token = localStorage.getItem('token')
+    let headers = this.header.append('Authorization', `Bearer ${token}`);
+    return this.http.put(`${environment.url}/user/update `, userData,{headers});
+  }
+
+  public login(userData: any){
+    return this.http.post(`${environment.url}/login`, userData);
+  }
+
+  public getProfile(){
+    let token = localStorage.getItem('token')
+    let headers = this.header.append('Authorization', `Bearer ${token}`);
+    return this.http.get(`${environment.url}/user/show`,{headers})
+  }
+
+  public getCaloriesTracks(){
+    let token = localStorage.getItem('token')
+    let headers = this.header.append('Authorization', `Bearer ${token}`);
+    return this.http.get(`${environment.url}/v1/calories`,{headers})
   }
 }
