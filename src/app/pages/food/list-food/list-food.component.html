@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Consumo calorico</ion-title>
+    <ion-title>Registro calorico</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar animated="true" placeholder="Buscar.." [debounce]="500" (ionInput)="search($event)"></ion-searchbar>
+    
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -38,7 +42,7 @@
   </ion-infinite-scroll>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button>
+    <ion-fab-button (click)="goCreate()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>

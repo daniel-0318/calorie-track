@@ -21,7 +21,7 @@ export class UserApiService {
   public updateUser(userData: any){
     let token = localStorage.getItem('token')
     let headers = this.header.append('Authorization', `Bearer ${token}`);
-    return this.http.put(`${environment.url}/user/update `, userData,{headers});
+    return this.http.put(`${environment.url}/user/update`, userData,{headers});
   }
 
   public login(userData: any){
@@ -31,12 +31,36 @@ export class UserApiService {
   public getProfile(){
     let token = localStorage.getItem('token')
     let headers = this.header.append('Authorization', `Bearer ${token}`);
-    return this.http.get(`${environment.url}/user/show`,{headers})
+    return this.http.get(`${environment.url}/user/show`,{headers});
   }
 
-  public getCaloriesTracks(){
+  public getCaloriesTracks(page:number){
     let token = localStorage.getItem('token')
     let headers = this.header.append('Authorization', `Bearer ${token}`);
-    return this.http.get(`${environment.url}/v1/calories`,{headers})
+    return this.http.get(`${environment.url}/v1/calories?page=${page}`,{headers});
+  }
+
+  public searchCaloriesTracks(data:any){
+    let token = localStorage.getItem('token')
+    let headers = this.header.append('Authorization', `Bearer ${token}`);
+    return this.http.post(`${environment.url}/v1/calories/search`,data,{headers});
+  }
+
+  public createCalorieTrack(data:any){
+    let token = localStorage.getItem('token')
+    let headers = this.header.append('Authorization', `Bearer ${token}`);
+    return this.http.post(`${environment.url}/v1/calories`,data,{headers});
+  }
+
+  public updateCalorieTrack(data: any, id:number){
+    let token = localStorage.getItem('token')
+    let headers = this.header.append('Authorization', `Bearer ${token}`);
+    return this.http.put(`${environment.url}/v1/calories/${id}`, data,{headers});
+  }
+
+  public deleteCalorieTrack(id:number){
+    let token = localStorage.getItem('token')
+    let headers = this.header.append('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${environment.url}/v1/calories/${id}`,{headers});
   }
 }

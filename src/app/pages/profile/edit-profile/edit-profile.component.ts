@@ -18,13 +18,9 @@ export class EditProfileComponent {
   constructor(private fb: FormBuilder, private validatorsService: ValidatorsService,
     public photoService: PhotoService, private userApi: UserApiService,private router: Router) {
     const navigation = this.router.getCurrentNavigation();
-    console.log(navigation );
     if (navigation && navigation.extras && navigation.extras.state) {
       this.profile = navigation.extras["state"]["profile"];
     }
-
-
-    console.log(this.profile);
     
 
     this.profileform = this.fb.group({

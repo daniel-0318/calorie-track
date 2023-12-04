@@ -1,3 +1,25 @@
-<p>
-  create-food works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/food/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title>registro calórico</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="registroForm" (ngSubmit)="onSubmit()" class="my-4">
+    <ion-item>
+      <ion-input formControlName="food" type="text" labelPlacement="floating" label="Comida"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input formControlName="quantity" type="number" labelPlacement="floating" label="Cantidad"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input formControlName="calories" type="number" labelPlacement="floating" label="Calorías promedio"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-datetime formControlName="dateFood" display-format="YYYY-MM-DD" type="date" label="Fecha"></ion-datetime>
+    </ion-item>
+    <ion-button expand="block" type="submit" [disabled]="!registroForm.valid">Guardar</ion-button>
+  </form>
+</ion-content>
