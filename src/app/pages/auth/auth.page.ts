@@ -18,7 +18,7 @@ export class AuthPage implements OnInit {
     .pipe(filter(event => event instanceof NavigationEnd))
     .subscribe((event)=>{
       if(this.router.url.includes('auth/register')){
-        this.title = "Registarse";
+        this.title = "Registrarse";
       }else{
         this.title = "Iniciar sesión";
 

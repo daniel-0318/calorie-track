@@ -9,15 +9,19 @@ export class PhotoService {
   constructor() { }
 
 
-  public takephoto(){
-    const takePicture = async () => {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: true,
-        resultType: CameraResultType.Base64
-      });
+  public async takephoto() {
+    console.log("tratando de abrir camara");
 
-      return takePicture;
-    };
+    const image = await Camera.getPhoto({
+      quality: 80,
+      allowEditing: true,
+      resultType: CameraResultType.Base64
+    });
+
+    let base64 = image.base64String;
+
+
+    return base64;
+
   }
 }

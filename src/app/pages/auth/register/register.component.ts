@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { PhotoService } from 'src/app/services/photo.service';
+import { UserApiService } from 'src/app/services/user-api.service';
 import { ValidatorsService } from 'src/app/services/validators.service';
 
 @Component({
@@ -12,7 +14,8 @@ export class RegisterComponent{
 
   registerForm: FormGroup;
   
-  constructor(private fb: FormBuilder,  private validatorsService:ValidatorsService, public photoService: PhotoService) {
+  constructor(private fb: FormBuilder, private validatorsService:ValidatorsService, 
+    public photoService: PhotoService, private userApi:UserApiService, private router: Router) {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -23,9 +26,9 @@ export class RegisterComponent{
       phoneNumber: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       password2: ['', [Validators.required]],
-      cedulaFrontal: [''],
-      cedulaReverso: [''],
-      facialPhoto: ['']
+      photoIdFront: ['', [Validators.required]],
+      photoIdBack: ['', [Validators.required]],
+      photoFacial: ['', [Validators.required]]
     }, {
       validators: [
         this.validatorsService.isFieldOneEqualFieldTwo('password', 'password2')
@@ -38,8 +41,11 @@ export class RegisterComponent{
   }
 
   addPhotoToGallery(campo:string) {
-
-    this.registerForm.get(campo)?.setValue(this.photoService.takephoto());
+    let imageb64 = this.photoService.takephoto().then(resp =>{
+      console.log(resp);
+      this.registerForm.get(campo)?.setValue(resp);
+    }
+    );
     
   }
 
@@ -47,11 +53,22 @@ export class RegisterComponent{
    onSubmit() {
     if (this.registerForm.valid) {
       console.log(this.registerForm.value);
-      // Aquí puedes enviar los datos o realizar otras operaciones con ellos
+      const formData = this.registerForm.value;
+      this.userApi.createUser(formData).subscribe(resp => {
+        console.log("registro", resp);
+        this.toLogin();
+      }, error => {
+        // Manejar errores si es necesario
+        console.error('Error al crear usuario:', error);
+      });
+      
     } else {
-      // Marcar los campos como tocados para mostrar errores si el formulario no es válido
       this.registerForm.markAllAsTouched();
     }
+  }
+  
+  toLogin(){
+    this.router.navigate(['/auth/login'])
   }
 
 }

@@ -1,5 +1,6 @@
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <ion-list>
+<ion-content>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mx-3 mb-4">
 
       <ion-buttons slot="start">
         <ion-back-button default-href="/auth/login" text="Regresar"></ion-back-button>
@@ -83,25 +84,34 @@
       </ion-text>
 
       <ion-item>
-        <ion-button (click)="addPhotoToGallery('cedulaFrontal')">Adjuntar imagen</ion-button>
-        <ion-input formControlName="cedulaFrontal" type="text" labelPlacement="floating"
-        label="Cédula frontal" readonly></ion-input>
+        <ion-button (click)="addPhotoToGallery('photoIdFront')">Adjuntar imagen</ion-button>
+        <ion-input formControlName="photoIdFront" type="text"
+        label="" readonly></ion-input>
       </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('photoIdFront')">
+        La foto de la cédula es requerido.
+      </ion-text>
   
-      <!-- Adjuntar imagen cédula reverso -->
-      <ion-item>
-        <ion-button (click)="addPhotoToGallery('cedulaReverso')">Adjuntar imagen</ion-button>
-        <ion-input formControlName="cedulaReverso" type="text" labelPlacement="floating"
-        label="Cédula reverso" readonly></ion-input>
-      </ion-item>
-  
-      <!-- Adjuntar fotografía de rostro -->
-      <ion-item>
-        <ion-button (click)="addPhotoToGallery('facialPhoto')">Adjuntar imagen</ion-button>
-        <ion-input formControlName="facialPhoto" type="text" labelPlacement="floating"
-        label="Fotografía de rostro" readonly></ion-input>
-      </ion-item>
 
-      <ion-button expand="block" type="submit" [disabled]="!registerForm.valid">Registrarse</ion-button>
-    </ion-list>
+      <ion-item>
+        <ion-button (click)="addPhotoToGallery('photoIdBack')">Adjuntar imagen</ion-button>
+        <ion-input formControlName="photoIdBack" type="text"
+        label="" readonly></ion-input>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('photoIdBack')">
+        La foto de la cédula es requerido.
+      </ion-text>
+  
+
+      <ion-item>
+        <ion-button (click)="addPhotoToGallery('photoFacial')">Adjuntar imagen</ion-button>
+        <ion-input formControlName="photoFacial" type="text"
+        label="" readonly></ion-input>
+      </ion-item>
+      <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('photoFacial')">
+        La foto facial es requerido.
+      </ion-text>
+
+      <ion-button expand="block" type="submit">Registrarse</ion-button>
   </form>
+</ion-content>
