@@ -123,6 +123,16 @@ export class ListFoodComponent {
       if(resp && resp.data){
       this.items = resp.data
     }
+    }, (error) => {
+      console.log("manejo error lista");
+
+        let itemstemp = localStorage.getItem("items");
+        if(itemstemp){
+          this.items = JSON.parse(itemstemp);
+          this.items = this.items.filter((item:any) => item.food.includes(text));
+        }
+        
+
     });
 
   }
