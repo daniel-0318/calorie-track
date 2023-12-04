@@ -52,13 +52,16 @@ export class RegisterComponent{
 
    onSubmit() {
     if (this.registerForm.valid) {
-      const formData = this.registerForm.value;
+      const formData = {...this.registerForm.value};
+      delete formData.password2;
+      formData.geoAddress="123,123";
       this.userApi.createUser(formData).subscribe(resp => {
-        console.log("registro", resp);
         this.toLogin();
       }, error => {
-        // Manejar errores si es necesario
-        console.error('Error al crear usuario:', error);
+        console.log("no hay conexion pasamos a offline");
+        const info = JSON.stringify(formData)
+        localStorage.setItem("user", info);
+        this.router.navigateByUrl("auth/login");
       });
       
     } else {

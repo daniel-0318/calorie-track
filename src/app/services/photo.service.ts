@@ -10,10 +10,9 @@ export class PhotoService {
 
 
   public async takephoto() {
-    console.log("tratando de abrir camara");
 
     const image = await Camera.getPhoto({
-      quality: 80,
+      quality: 20,
       allowEditing: true,
       resultType: CameraResultType.Base64
     });

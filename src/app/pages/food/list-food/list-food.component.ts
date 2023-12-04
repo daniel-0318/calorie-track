@@ -41,11 +41,17 @@ export class ListFoodComponent {
           handler: () => {
             this.userApi.deleteCalorieTrack(item.id).subscribe((resp:any)=>{
               this.items = this.items.filter((element:any)=> element.id !== item.id);
-              console.log(this.items.length);
+
               
             },
             (error) => {
               console.error('Error al eliminar:', error);
+              let token = localStorage.getItem('token');
+              if(token && token==="faketoken"){
+                this.items = this.items.filter((element:any)=> element.id !== item.id);
+                let itemsString = JSON.stringify(this.items);
+                localStorage.setItem('items', itemsString);
+              }
             });
             
           }
@@ -57,6 +63,7 @@ export class ListFoodComponent {
   }
 
   onIonInfinite(ev:any) {
+    
     // this.generateItems();
     this.page = this.page+1;
     this.getItems(this.page);
@@ -64,6 +71,14 @@ export class ListFoodComponent {
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 500);
     
+    
+  }
+
+  ionViewWillEnter(){
+    console.log("ionViewWillEnter");
+    
+    this.page = 1;
+    this.getItems(this.page);
     
   }
 
@@ -76,6 +91,15 @@ export class ListFoodComponent {
         this.items =[...this.items, ...resp.data];
 
       }
+    }, (error) => {
+      console.log("manejo error lista");
+      setTimeout(() => {
+        let itemstemp = localStorage.getItem("items");
+        if(itemstemp){
+          this.items = JSON.parse(itemstemp);
+        }
+        
+      }, 500);
     });
   }
 

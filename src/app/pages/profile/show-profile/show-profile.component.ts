@@ -28,11 +28,30 @@ export class ShowProfileComponent {
       if(resp){
         this.profile = resp;
       }
+    }, (error) => {
+      let temp = localStorage.getItem("profile");
+      let tempuser = localStorage.getItem("user");
+      if(temp){
+
+        let temp2  = JSON.parse(temp)
+        let tempUser  = JSON.parse(tempuser!);
+        temp2.photoFacial = tempUser.photoFacial;
+        this.profile = temp2;
+      }else{
+        if(tempuser){
+
+          let temp2  = JSON.parse(tempuser);
+          this.profile = temp2;
+        }
+      }
+           
+
     });
   }
 
   logout(){
-
+    localStorage.removeItem('token')
+    this.router.navigateByUrl('auth/login');
   }
 
 }

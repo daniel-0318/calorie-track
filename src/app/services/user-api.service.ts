@@ -15,7 +15,7 @@ export class UserApiService {
   constructor(private http: HttpClient) { }
 
   public createUser(userData: any) {
-    return this.http.post(`${environment.url}/user`, userData);
+    return this.http.post(`${environment.url}/user`, userData,{headers:this.header});
   }
 
   public updateUser(userData: any){
@@ -62,5 +62,14 @@ export class UserApiService {
     let token = localStorage.getItem('token')
     let headers = this.header.append('Authorization', `Bearer ${token}`);
     return this.http.delete(`${environment.url}/v1/calories/${id}`,{headers});
+  }
+
+  public isAuthenticated(){
+    let token = localStorage.getItem('token');
+    if(token){
+      return true
+    }else{
+      return false;
+    }
   }
 }

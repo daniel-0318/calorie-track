@@ -28,14 +28,32 @@ export class CreateFoodComponent  {
   }
 
   onSubmit() {
-    if (this.registroForm.valid) {
-      console.log(this.registroForm.value); 
+    if (this.registroForm.valid) { 
       let data = this.registroForm.value;
       if(this.item){
         this.userApi.updateCalorieTrack(data, this.item.id).subscribe((resp:any)=>{
           if(resp && resp.message==="Success"){
             this.router.navigateByUrl("/food/list");
           }
+        }, (error) => {
+          let itemsTemp = localStorage.getItem("items");
+          data.id = data.dateFood;
+          if(itemsTemp){
+            let temp = JSON.parse(itemsTemp);
+            const index = temp.findIndex((objeto:any) => objeto.id === data.id);
+            if (index !== -1) {
+              temp[index] = data;
+            } else {
+              temp = [data, ...temp];
+            }
+            let temp2 = JSON.stringify(temp);
+              
+
+            localStorage.setItem("items",temp2);
+            this.router.navigateByUrl("/food/list");
+          }
+               
+
         });
       }else{
 
@@ -43,6 +61,31 @@ export class CreateFoodComponent  {
           if(resp && resp.id){
             this.router.navigateByUrl("/food/list");
           }
+        }, (error) => {
+          console.log("manejo error");
+          
+          let itemsTemp = localStorage.getItem("items");
+          data.id = data.dateFood;
+          if(!itemsTemp){
+            let temp = [data];
+            let temp2 = JSON.stringify(temp);
+            localStorage.setItem("items",temp2);
+          }else{
+
+            let temp = JSON.parse(itemsTemp);
+            const index = temp.findIndex((objeto:any) => objeto.id === data.id);
+            if (index !== -1) {
+              temp[index] = data;
+            } else {
+              temp = [data, ...temp];
+            }
+            let temp2 = JSON.stringify(temp);
+              
+
+            localStorage.setItem("items",temp2);
+
+          }
+          this.router.navigateByUrl("/food/list");
         });
       }
     } else {
