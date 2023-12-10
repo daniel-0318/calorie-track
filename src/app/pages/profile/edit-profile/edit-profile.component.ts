@@ -55,8 +55,6 @@ export class EditProfileComponent {
           this.router.navigateByUrl('/profile/show');
         }
       }, error => {
-        // Manejar errores si es necesario
-        console.error('Error al actualizar usuario:', error);
         let temp = JSON.stringify(formData);
         localStorage.setItem("profile", temp);
         this.router.navigateByUrl('/profile/show');

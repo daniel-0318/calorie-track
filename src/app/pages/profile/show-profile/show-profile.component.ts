@@ -24,9 +24,10 @@ export class ShowProfileComponent {
   }
 
   getProfile(){
-    this.userApi.getProfile().subscribe(resp=>{
+    this.userApi.getProfile().subscribe((resp:any)=>{
       if(resp){
         this.profile = resp;
+        this.profile.photoFacial = resp.photoFacial ? 'data:image/jpeg;base64,'+resp.photoFacial : '/assets/img/user.png';
       }
     }, (error) => {
       let temp = localStorage.getItem("profile");
@@ -50,8 +51,15 @@ export class ShowProfileComponent {
   }
 
   logout(){
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
+    localStorage.removeItem('items');
+    localStorage.removeItem('profile');
+    localStorage.removeItem('user');
     this.router.navigateByUrl('auth/login');
+  }
+
+  setPassword(){
+    this.router.navigateByUrl('profile/change-password');
   }
 
 }

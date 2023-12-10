@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfilePage } from './profile.page';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ShowProfileComponent } from './show-profile/show-profile.component';
+import { ChangePassowrdComponent } from './change-password/change-password.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: 'edit',
         component: EditProfileComponent,
+      },
+      {
+        path: 'change-password',
+        component: ChangePassowrdComponent
       }
     ]
   }

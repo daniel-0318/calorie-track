@@ -6,11 +6,11 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="ion-padding">
   <ion-card *ngIf="profile">
     <ion-card-content class="d-flex flex-column">
       <div class="profile-pic">
-        <img [src]="'data:image/jpeg;base64,'+ profile.photoFacial" alt="Foto de perfil" />
+        <img [src]="profile.photoFacial" alt="Foto de perfil" />
       </div>
       <hr>
       <ion-card-title>{{ profile.name }} {{ profile.lastname }}</ion-card-title>
@@ -21,5 +21,6 @@
       <ion-label><strong>Número de identificación: </strong> {{ profile.identificationNumber }}</ion-label>
     </ion-card-content>
   </ion-card>
+  <ion-button expand="block" (click)="setPassword()">Cambiar contraseña</ion-button>
   <ion-button expand="block" (click)="logout()">Cerrar sesion</ion-button>
 </ion-content>

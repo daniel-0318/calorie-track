@@ -14,14 +14,18 @@ export class UserApiService {
 
   constructor(private http: HttpClient) { }
 
+  public getHeader(){
+    let token = localStorage.getItem('token')
+    let headers = this.header.append('Authorization', `Bearer ${token}`);
+    return headers;
+  }
+
   public createUser(userData: any) {
     return this.http.post(`${environment.url}/user`, userData,{headers:this.header});
   }
 
   public updateUser(userData: any){
-    let token = localStorage.getItem('token')
-    let headers = this.header.append('Authorization', `Bearer ${token}`);
-    return this.http.put(`${environment.url}/user/update`, userData,{headers});
+    return this.http.put(`${environment.url}/user/update`, userData,{headers:this.getHeader()});
   }
 
   public login(userData: any){
@@ -29,39 +33,28 @@ export class UserApiService {
   }
 
   public getProfile(){
-    let token = localStorage.getItem('token')
-    let headers = this.header.append('Authorization', `Bearer ${token}`);
-    return this.http.get(`${environment.url}/user/show`,{headers});
+
+    return this.http.get(`${environment.url}/user/show`,{headers:this.getHeader()});
   }
 
   public getCaloriesTracks(page:number){
-    let token = localStorage.getItem('token')
-    let headers = this.header.append('Authorization', `Bearer ${token}`);
-    return this.http.get(`${environment.url}/v1/calories?page=${page}`,{headers});
+    return this.http.get(`${environment.url}/v1/calories?page=${page}`,{headers:this.getHeader()});
   }
 
   public searchCaloriesTracks(data:any){
-    let token = localStorage.getItem('token')
-    let headers = this.header.append('Authorization', `Bearer ${token}`);
-    return this.http.post(`${environment.url}/v1/calories/search`,data,{headers});
+    return this.http.post(`${environment.url}/v1/calories/search`,data,{headers:this.getHeader()});
   }
 
   public createCalorieTrack(data:any){
-    let token = localStorage.getItem('token')
-    let headers = this.header.append('Authorization', `Bearer ${token}`);
-    return this.http.post(`${environment.url}/v1/calories`,data,{headers});
+    return this.http.post(`${environment.url}/v1/calories`,data,{headers:this.getHeader()});
   }
 
   public updateCalorieTrack(data: any, id:number){
-    let token = localStorage.getItem('token')
-    let headers = this.header.append('Authorization', `Bearer ${token}`);
-    return this.http.put(`${environment.url}/v1/calories/${id}`, data,{headers});
+    return this.http.put(`${environment.url}/v1/calories/${id}`, data,{headers:this.getHeader()});
   }
 
   public deleteCalorieTrack(id:number){
-    let token = localStorage.getItem('token')
-    let headers = this.header.append('Authorization', `Bearer ${token}`);
-    return this.http.delete(`${environment.url}/v1/calories/${id}`,{headers});
+    return this.http.delete(`${environment.url}/v1/calories/${id}`,{headers:this.getHeader()});
   }
 
   public isAuthenticated(){
@@ -71,5 +64,14 @@ export class UserApiService {
     }else{
       return false;
     }
+  }
+
+  public changePassword(current_password:string, password:string){
+
+    let data = {
+      current_password, password
+    };
+    return this.http.put(`${environment.url}/user/updatePassword`, data,{headers:this.getHeader()});
+    
   }
 }

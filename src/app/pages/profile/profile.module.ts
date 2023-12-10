@@ -9,6 +9,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 import { ProfilePage } from './profile.page';
 import { ShowProfileComponent } from './show-profile/show-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ChangePassowrdComponent } from './change-password/change-password.component';
 
 @NgModule({
   imports: [
@@ -20,8 +21,9 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
   ],
   declarations: [
     ProfilePage,
+    ChangePassowrdComponent,
+    EditProfileComponent,
     ShowProfileComponent,
-    EditProfileComponent
   ],
 })
 export class ProfilePageModule {}
