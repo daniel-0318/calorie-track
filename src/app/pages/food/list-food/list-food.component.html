@@ -2,12 +2,17 @@
   <ion-toolbar>
     <ion-title>Registro calorico</ion-title>
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-searchbar animated="true" placeholder="Buscar.." [debounce]="500" (ionInput)="search($event)"></ion-searchbar>
-    
-  </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-row class="ion-padding">
+    <ion-searchbar animated="true" placeholder="Buscar.." [debounce]="500" (ionInput)="searchText($event)"></ion-searchbar>
+    <ion-col size="6">
+      <app-date-range-modal [title]="'Fecha de inicio'" [type]="'start_date'" (date)="rangeDate($event)"></app-date-range-modal>
+    </ion-col>
+    <ion-col size="6">
+      <app-date-range-modal [title]="'Fecha de final'" [type]="'end_date'" (date)="rangeDate($event)"></app-date-range-modal>
+    </ion-col>
+  </ion-row>
   <ion-list>
     <ion-card *ngFor="let item of items">
       <ion-card-header>

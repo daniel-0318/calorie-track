@@ -1,0 +1,20 @@
+<ion-item>
+  <ion-input value="{{datemodal | date: 'dd/MM/yyyy'}}" [id]="'modal'+title" labelPlacement="floating" 
+  [label]="title" [clearInput]="true" (ionChange)="datePick($event)"
+  ></ion-input>
+  <ion-modal
+    [trigger]="'modal'+title"
+    [keepContentsMounted]="true"
+    [initialBreakpoint]="0.65"
+  >
+    <ng-template>
+      <ion-datetime
+        [(ngModel)]="datemodal"
+        [ngModelOptions]="{standalone: true}"
+        (ionChange)="datePick($event)"
+        [showDefaultButtons]="true"
+        doneText="Aceptar" cancelText="Cancelar"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+</ion-item>

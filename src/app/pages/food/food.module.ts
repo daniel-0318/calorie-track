@@ -9,6 +9,7 @@ import { FoodPageRoutingModule } from './food-routing.module';
 import { FoodPage } from './food.page';
 import { ListFoodComponent } from './list-food/list-food.component';
 import { CreateFoodComponent } from './create-food/create-food.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { CreateFoodComponent } from './create-food/create-food.component';
     FormsModule,
     IonicModule,
     FoodPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   declarations: [FoodPage, ListFoodComponent, CreateFoodComponent]
 })
