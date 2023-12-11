@@ -37,8 +37,8 @@ export class MapModalComponent {
     this.setMarker(this.coordinates);
 
     this.map.setOnMapClickListener(({latitude, longitude} )=>{
-      this.setMarker({lat: latitude, lng:longitude})
-      
+      this.setMarker({lat: latitude, lng:longitude});
+    
     });
 
   }
@@ -51,7 +51,7 @@ export class MapModalComponent {
     this.marker = await this.map.addMarker({
       coordinate
     });
-    console.log(this.marker);
+    this.coordinates = coordinate;
   }
 
   async getCurrentCoordinates() {

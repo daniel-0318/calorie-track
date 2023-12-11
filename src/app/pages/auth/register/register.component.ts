@@ -15,6 +15,8 @@ import { MapModalComponent } from 'src/app/shared/map-modal/map-modal.component'
 export class RegisterComponent{
 
   registerForm: FormGroup;
+  showPassword:boolean = false;
+  showPassowordConfirm:boolean = false;
   
   constructor(private fb: FormBuilder, private validatorsService:ValidatorsService, 
     public photoService: PhotoService, private userApi:UserApiService, private router: Router,
@@ -83,6 +85,8 @@ export class RegisterComponent{
     modal.onDidDismiss().then((dataReturned) => {
       
       if (dataReturned !== null) {
+        console.log(dataReturned.data);
+        
         this.registerForm.get('address')?.setValue(dataReturned.data);
       }
 
@@ -99,6 +103,14 @@ export class RegisterComponent{
       return '/assets/img/user.png';
     }else{
       return '/assets/img/dni.png';
+    }
+  }
+
+  toggleShowPassword(field:string){
+    if(field == "password"){
+      this.showPassword = !this.showPassword;
+    }else if(field == "passwordConfirm"){
+      this.showPassowordConfirm = !this.showPassowordConfirm;
     }
   }
 
