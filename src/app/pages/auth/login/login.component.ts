@@ -27,36 +27,45 @@ export class LoginComponent {
 
   onLogin(){
 
-    let credentials = this.myForm.value;
-    credentials.name = 'app';
-    console.log("creden", credentials);
-    this.userApi.login(credentials).subscribe((resp:any) => {
-      
-      if(resp['message'] === 'Sucess'){
-        localStorage.setItem('token',resp['token'])
-        this.router.navigate(['/'])
-      }
-      
-    }, (error) => {
-      if(error.status == 401){
-        this.alertsService.presentAlert("Error al iniciar sesión", "Usuario o contraseña incorrectos");
-        
-      }else if(error.status == 0){
-        
-        let local = localStorage.getItem('user');
-        let user = JSON.parse(local!);
-        if(user?.email === credentials.email && user.password === credentials.password){
-          localStorage.setItem('token', 'faketoken');
-          this.router.navigateByUrl("/");
-        }
+    if(this.myForm.valid){
 
-      }
-    });
+      let credentials = this.myForm.value;
+      credentials.name = 'app';
+      console.log("creden", credentials);
+      this.userApi.login(credentials).subscribe((resp:any) => {
+        
+        if(resp['message'] === 'Sucess'){
+          localStorage.setItem('token',resp['token'])
+          this.router.navigate(['/'])
+        }
+        
+      }, (error) => {
+        if(error.status == 401){
+          this.alertsService.presentAlert("Error al iniciar sesión", "Usuario o contraseña incorrectos");
+          
+        }else if(error.status == 0){
+          
+          let local = localStorage.getItem('user');
+          let user = JSON.parse(local!);
+          if(user?.email === credentials.email && user.password === credentials.password){
+            localStorage.setItem('token', 'faketoken');
+            this.router.navigateByUrl("/");
+          }
+  
+        }
+      });
+    }else {
+      this.myForm.markAllAsTouched();
+    }
     
   }
 
   toggleShowPassword(){
     this.showPassword = !this.showPassword;
+  }
+
+  public isValidField(field:string){
+    this.validatorsService.isValidField(this.myForm, field);
   }
 
 }

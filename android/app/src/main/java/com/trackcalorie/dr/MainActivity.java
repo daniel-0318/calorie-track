@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.trackcalorie.dr;
 
 import com.getcapacitor.BridgeActivity;
 

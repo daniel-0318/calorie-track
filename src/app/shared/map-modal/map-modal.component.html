@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Seleccionar Ubicación
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <capacitor-google-map #map style="height: 80vh;"></capacitor-google-map>
+  <ion-button expand="block" (click)="selectCoord()">Seleccionar Coordenadas</ion-button>
+</ion-content>

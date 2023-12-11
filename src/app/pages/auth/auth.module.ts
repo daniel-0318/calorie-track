@@ -9,6 +9,7 @@ import { AuthPageRoutingModule } from './auth-routing.module';
 import { AuthPage } from './auth.page';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { RegisterComponent } from './register/register.component';
     IonicModule,
     AuthPageRoutingModule,
     ReactiveFormsModule,
+    SharedModule
   ],
   declarations: [
     AuthPage,

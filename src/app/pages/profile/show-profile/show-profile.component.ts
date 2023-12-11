@@ -27,7 +27,7 @@ export class ShowProfileComponent {
     this.userApi.getProfile().subscribe((resp:any)=>{
       if(resp){
         this.profile = resp;
-        this.profile.photoFacial = resp.photoFacial ? 'data:image/jpeg;base64,'+resp.photoFacial : '/assets/img/user.png';
+        this.profile.photoFacial = resp.photoFacial ? + resp.photoFacial : '/assets/img/user.png';
       }
     }, (error) => {
       let temp = localStorage.getItem("profile");
