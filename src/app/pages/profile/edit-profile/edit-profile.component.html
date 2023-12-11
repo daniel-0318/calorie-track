@@ -9,7 +9,13 @@
 
 <ion-content>
   <form [formGroup]="profileform" (ngSubmit)="onSubmit()" class="mx-3 my-4">
-
+    <div class="profile-pic ion-text-center">
+      <img [src]="getPhoto('photoFacial')" alt="Foto de perfil" />
+      <ion-button (click)="changeProfilePhoto()" class="change-photo-button">
+        Actualizar foto
+        <ion-icon slot="end" name="camera"></ion-icon>
+      </ion-button>
+    </div>
     <ion-item>
       <ion-input formControlName="name" type="text" labelPlacement="floating" label="Nombre"></ion-input>
     </ion-item>

@@ -27,10 +27,13 @@ export class ShowProfileComponent {
     this.userApi.getProfile().subscribe((resp:any)=>{
       if(resp){
         this.profile = resp;
-        this.profile.photoFacial = resp.photoFacial ? + resp.photoFacial : '/assets/img/user.png';
+        this.profile.photoFacial = resp.photoFacial ? resp.photoFacial : '/assets/img/user.png';
+        let tempProfile = JSON.stringify( this.profile);
+        localStorage.setItem("user", tempProfile );
       }
     }, (error) => {
-      let temp = localStorage.getItem("profile");
+      if(error.status == 0){
+        let temp = localStorage.getItem("profile");
       let tempuser = localStorage.getItem("user");
       if(temp){
 
@@ -44,6 +47,7 @@ export class ShowProfileComponent {
           let temp2  = JSON.parse(tempuser);
           this.profile = temp2;
         }
+      }
       }
            
 

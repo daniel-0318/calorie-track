@@ -46,7 +46,7 @@ export class RegisterComponent{
 
   addPhotoToGallery(campo:string) {
     this.photoService.takephoto().then(resp =>{
-      this.registerForm.get(campo)?.setValue("data:image/jpeg;base64,"+resp);
+      this.registerForm.get(campo)?.setValue(resp);
     }
     );
     
@@ -57,7 +57,6 @@ export class RegisterComponent{
     if (this.registerForm.valid) {
       const formData = {...this.registerForm.value};
       delete formData.password2;
-      formData.geoAddress="123,123";
       this.userApi.createUser(formData).subscribe(resp => {
         this.toLogin();
       }, error => {

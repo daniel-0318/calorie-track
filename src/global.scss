@@ -33,3 +33,11 @@ ion-toolbar{
 .text-error{
   font-size: 0.8em;
 }
+.profile-pic img {
+  width: 150px; 
+  height: 150px; 
+  border-radius: 50%; 
+  object-fit: cover;
+  margin: auto; 
+  display: block;
+}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { PhotoService } from 'src/app/services/photo.service';
 import { UserApiService } from 'src/app/services/user-api.service';
 import { ValidatorsService } from 'src/app/services/validators.service';
@@ -16,7 +17,8 @@ export class EditProfileComponent {
   profile: any;
 
   constructor(private fb: FormBuilder, private validatorsService: ValidatorsService,
-    public photoService: PhotoService, private userApi: UserApiService,private router: Router) {
+    public photoService: PhotoService, private userApi: UserApiService,private router: Router,
+    private alertsService:AlertsService) {
     const navigation = this.router.getCurrentNavigation();
     if (navigation && navigation.extras && navigation.extras.state) {
       this.profile = navigation.extras["state"]["profile"];
@@ -24,6 +26,7 @@ export class EditProfileComponent {
     
 
     this.profileform = this.fb.group({
+      photoFacial: [this.profile.photoFacial, [Validators.required]],
       name: [this.profile.name, Validators.required],
       lastname: [this.profile.lastname, Validators.required],
       identificationType: [this.profile.identificationType, Validators.required],
@@ -38,31 +41,34 @@ export class EditProfileComponent {
     return this.validatorsService.isValidField(this.profileform, field);
   }
 
-  addPhotoToGallery(campo: string) {
-    let imageb64 = this.photoService.takephoto().then(resp => {
-      console.log(resp);
-      this.profileform.get(campo)?.setValue(resp);
-    }
-    );
+  public changeProfilePhoto(){
+    this.photoService.takephoto().then(resp => {
+      this.profileform.get("photoFacial")?.setValue(resp);
+    });
   }
 
   onSubmit() {
     if (this.profileform.valid) {
       const formData = this.profileform.value;
       this.userApi.updateUser(formData).subscribe((resp:any) => {
-        console.log("actualizacion", resp);
         if(resp && resp?.message==='Sucess'){
+          this.alertsService.presentToast("Perfil actualizado");
           this.router.navigateByUrl('/profile/show');
         }
       }, error => {
         let temp = JSON.stringify(formData);
         localStorage.setItem("profile", temp);
+        this.alertsService.presentToast("Perfil actualizado");
         this.router.navigateByUrl('/profile/show');
       });
       
     } else {
       this.profileform.markAllAsTouched();
     }
+  }
+
+  public getPhoto(photo:string){
+    return this.profileform.get(photo)?.value;
   }
 
 }

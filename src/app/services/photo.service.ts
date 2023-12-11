@@ -17,7 +17,7 @@ export class PhotoService {
       resultType: CameraResultType.Base64
     });
 
-    let base64 = image.base64String;
+    let base64 = "data:image/jpeg;base64,"+image.base64String;
 
 
     return base64;
