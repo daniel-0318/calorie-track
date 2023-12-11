@@ -10,6 +10,7 @@ import { ProfilePage } from './profile.page';
 import { ShowProfileComponent } from './show-profile/show-profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { ChangePassowrdComponent } from './change-password/change-password.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ChangePassowrdComponent } from './change-password/change-password.compo
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   declarations: [
     ProfilePage,

@@ -33,6 +33,9 @@ export class EditProfileComponent {
       identificationNumber: [this.profile.identificationNumber, Validators.required],
       gender: [this.profile.gender, Validators.required],
       phone: [this.profile.phone, [Validators.required, Validators.pattern("^[0-9]+$")]],
+      geoAddress: [this.profile.geoAddress, Validators.required],
+      photoIdFront: [this.profile.photoIdFront, [Validators.required]],
+      photoIdBack: [this.profile.photoIdBack, [Validators.required]],
     });
   }
 
@@ -41,10 +44,12 @@ export class EditProfileComponent {
     return this.validatorsService.isValidField(this.profileform, field);
   }
 
-  public changeProfilePhoto(){
-    this.photoService.takephoto().then(resp => {
-      this.profileform.get("photoFacial")?.setValue(resp);
-    });
+  addPhotoToGallery(campo:string) {
+    this.photoService.takephoto().then(resp =>{
+      this.profileform.get(campo)?.setValue(resp);
+    }
+    );
+    
   }
 
   onSubmit() {
@@ -69,6 +74,24 @@ export class EditProfileComponent {
 
   public getPhoto(photo:string){
     return this.profileform.get(photo)?.value;
+  }
+
+  changeAddress(event:any){
+    
+    this.profileform.get('geoAddress')?.setValue(event);
+  }
+
+  getImage(type:string){
+    const image = this.profileform.get(type)?.value;
+    console.log(image);
+    
+    if(image != ""){
+      return image;
+    }else if(type == "photoFacial"){
+      return '/assets/img/user.png';
+    }else{
+      return '/assets/img/dni.png';
+    }
   }
 
 }
