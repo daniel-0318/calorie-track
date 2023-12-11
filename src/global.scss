@@ -41,3 +41,19 @@ ion-toolbar{
   margin: auto; 
   display: block;
 }
+
+ion-content {
+  --background: none;
+}
+
+.md body {
+  --ion-background-color: none;
+}
+
+ion-modal{
+  --ion-backgroung-color: none;
+}
+
+.alert-wrapper{
+  background: white !important;
+}

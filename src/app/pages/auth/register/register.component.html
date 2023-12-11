@@ -87,7 +87,10 @@
 
       <ion-item>
         <ion-input formControlName="address" type="text" labelPlacement="floating"
-          label="Dirección" readonly (click)="openMapModal()"></ion-input>
+          label="Dirección" readonly></ion-input>
+      </ion-item>
+      <ion-item>
+        <app-map-modal (address)="changeAddress($event)" style="width: 100%;"></app-map-modal>
       </ion-item>
       <ion-text color="danger" class="text-error pl-3" *ngIf="idValidField('address')">
         La geolocalización es necesaria.

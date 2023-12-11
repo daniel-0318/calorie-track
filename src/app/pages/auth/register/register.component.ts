@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
 import { PhotoService } from 'src/app/services/photo.service';
 import { UserApiService } from 'src/app/services/user-api.service';
 import { ValidatorsService } from 'src/app/services/validators.service';
-import { MapModalComponent } from 'src/app/shared/map-modal/map-modal.component';
+
 
 @Component({
   selector: 'app-register',
@@ -19,8 +18,7 @@ export class RegisterComponent{
   showPassowordConfirm:boolean = false;
   
   constructor(private fb: FormBuilder, private validatorsService:ValidatorsService, 
-    public photoService: PhotoService, private userApi:UserApiService, private router: Router,
-    private modalController: ModalController) {
+    public photoService: PhotoService, private userApi:UserApiService, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       lastname: ['', Validators.required],
@@ -77,23 +75,7 @@ export class RegisterComponent{
     this.router.navigate(['/auth/login'])
   }
 
-  async openMapModal() {
-    const modal = await this.modalController.create({
-      component: MapModalComponent,
-    });
 
-    modal.onDidDismiss().then((dataReturned) => {
-      
-      if (dataReturned !== null) {
-        console.log(dataReturned.data);
-        
-        this.registerForm.get('address')?.setValue(dataReturned.data);
-      }
-
-    });
-
-    return await modal.present();
-  }
 
   getImage(type:string){
     const image = this.registerForm.get(type)?.value;
@@ -112,6 +94,11 @@ export class RegisterComponent{
     }else if(field == "passwordConfirm"){
       this.showPassowordConfirm = !this.showPassowordConfirm;
     }
+  }
+
+  changeAddress(event:any){
+    
+    this.registerForm.get('address')?.setValue(event);
   }
 
 }

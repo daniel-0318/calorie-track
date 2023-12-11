@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Geolocation } from '@capacitor/geolocation';
 import { GoogleMap } from '@capacitor/google-maps';
@@ -13,14 +13,14 @@ export class MapModalComponent {
   @ViewChild('map') mapRef: ElementRef<HTMLElement>;
   map:GoogleMap;
   coordenadas: string = '';
+  @Output() address = new EventEmitter;
   coordinates:any = {};
   marker: any;
 
-  constructor(private modalController: ModalController) { }
-
-  ionViewDidEnter(){
+  constructor() { 
     this.createMap();
   }
+
 
   public async createMap(){
     this.coordinates = await this.getCurrentCoordinates();
@@ -37,6 +37,8 @@ export class MapModalComponent {
     this.setMarker(this.coordinates);
 
     this.map.setOnMapClickListener(({latitude, longitude} )=>{
+      console.log("click coorde");
+      
       this.setMarker({lat: latitude, lng:longitude});
     
     });
@@ -64,11 +66,7 @@ export class MapModalComponent {
 
   public selectCoord(){
     this.coordenadas = `${this.coordinates.lat.toFixed(6)}, ${this.coordinates.lng.toFixed(6)}`;
-    this.dismissModal(this.coordenadas);
-  }
-
-  dismissModal(data: any = null) {
-    this.modalController.dismiss(data);
+    this.address.emit(this.coordenadas)
   }
 
 }
